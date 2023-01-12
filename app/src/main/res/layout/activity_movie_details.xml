@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.activity.MovieDetailsActivity">
+
+    <ImageView
+        android:id="@+id/movie_details_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/ic_launcher_background"
+        android:scaleType="centerCrop"
+        tools:ignore="ContentDescription" />
+
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_back"
+        android:background="@android:color/transparent"
+        android:padding="16dp"
+        tools:ignore="ContentDescription" />
+
+    <LinearLayout
+        android:background="@drawable/shadow_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/movie_details_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Movie Title"
+            android:textSize="36sp"
+            android:textColor="@color/white"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            tools:ignore="HardcodedText,RtlSymmetry" />
+
+        <RatingBar
+            android:id="@+id/movie_details_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:progressBackgroundTint="@color/grey"
+            android:isIndicator="true"
+            android:layout_marginStart="16dp"
+             />
+
+        <TextView
+            android:id="@+id/movie_details_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="some text"
+            android:textColor="@color/white"
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            tools:ignore="HardcodedText"/>
+    </LinearLayout>
+
+</RelativeLayout>

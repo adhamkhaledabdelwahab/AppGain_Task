@@ -4,7 +4,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
 public class AppExecutors {
-    // Singleton pattern
     private static AppExecutors instance;
 
     public static AppExecutors getInstance(){

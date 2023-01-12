@@ -26,17 +26,17 @@ public class MovieApiClient {
 
     private RetrievePopularMoviesRunnable retrievePopularMoviesRunnable;
 
-    public static MovieApiClient getInstance(){
+    public static MovieApiClient getInstance() {
         if (instance == null)
             instance = new MovieApiClient();
         return instance;
     }
 
-    private MovieApiClient(){
+    private MovieApiClient() {
         mMoviesPop = new MutableLiveData<>();
     }
 
-    public LiveData<List<MovieModel>> getMoviesPop(){
+    public LiveData<List<MovieModel>> getMoviesPop() {
         return mMoviesPop;
     }
 
@@ -53,12 +53,11 @@ public class MovieApiClient {
                 .submit(retrievePopularMoviesRunnable);
 
         AppExecutors.getInstance().networkIO().schedule(() -> {
-            // Cancel Retrofit call
             myHandler.cancel(true);
         }, 5000, TimeUnit.MILLISECONDS);
     }
 
-    private class RetrievePopularMoviesRunnable implements Runnable{
+    private class RetrievePopularMoviesRunnable implements Runnable {
 
         private final int pageNumber;
         boolean cancelRequest;
@@ -72,22 +71,22 @@ public class MovieApiClient {
         public void run() {
             try {
                 Response<MovieSearchResponse> response = getPopularMovies(pageNumber).execute();
-                if (cancelRequest){
+                if (cancelRequest) {
                     return;
                 }
-                if (response.code() == 200){
+                if (response.code() == 200) {
                     assert response.body() != null;
                     List<MovieModel> list = new ArrayList<>(
                             response.body().getMovies());
-                    if (pageNumber == 1){
+                    if (pageNumber == 1) {
                         mMoviesPop.postValue(list);
-                    }else{
+                    } else {
                         List<MovieModel> currentMovies = mMoviesPop.getValue();
                         assert currentMovies != null;
                         currentMovies.addAll(list);
                         mMoviesPop.postValue(currentMovies);
                     }
-                }else{
+                } else {
                     assert response.errorBody() != null;
                     String error = response.errorBody().string();
                     Log.v("Tag", "Error " + error);
@@ -98,16 +97,16 @@ public class MovieApiClient {
                 mMoviesPop.postValue(null);
             }
 
-            if (cancelRequest){
+            if (cancelRequest) {
                 return;
             }
         }
 
-        private Call<MovieSearchResponse> getPopularMovies(int pageNumber){
+        private Call<MovieSearchResponse> getPopularMovies(int pageNumber) {
             return Service.getMovieApi().getPopularMovies(Credentials.API_KEY, pageNumber);
         }
 
-        private void cancelRequest(){
+        private void cancelRequest() {
             Log.v("Tag", "Cancelling Search Request");
             cancelRequest = true;
         }

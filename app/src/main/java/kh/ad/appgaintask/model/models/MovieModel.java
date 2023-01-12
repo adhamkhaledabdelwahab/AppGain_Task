@@ -6,7 +6,6 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 
 public class MovieModel implements Parcelable {
-    //Model class for our movies
     private final String title;
     private final String poster_path;
     private final String backdrop_path;

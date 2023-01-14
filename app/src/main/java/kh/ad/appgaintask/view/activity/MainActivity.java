@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements Animation.Animati
         } else {
             final Intent intent = new Intent(MainActivity.this, NoInternetActivity.class);
             Uri uri = getIntent().getData();
+            Log.d("MainActivity", "Uri: " + uri);
             if (uri != null) {
                 List<String> parameters = uri.getPathSegments();
                 if (parameters.size() == 2) {

@@ -1,7 +1,5 @@
-package kh.ad.appgaintask.model.request;
+package kh.ad.appgaintask.core.api;
 
-import kh.ad.appgaintask.core.Credentials;
-import kh.ad.appgaintask.core.MovieApi;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 

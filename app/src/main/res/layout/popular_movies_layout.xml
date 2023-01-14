@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_view"
     android:layout_width="280dp"
-    android:layout_height="450dp"
+    android:layout_height="match_parent"
+    android:maxHeight="500dp"
     android:layout_margin="15dp"
     app:cardCornerRadius="35dp"
     app:cardElevation="10dp">

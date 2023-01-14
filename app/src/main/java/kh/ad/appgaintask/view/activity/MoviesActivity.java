@@ -1,24 +1,22 @@
 package kh.ad.appgaintask.view.activity;
 
-import kh.ad.appgaintask.databinding.ActivityMoviesBinding;
-import kh.ad.appgaintask.view.adapter.MovieRecyclerView;
-import kh.ad.appgaintask.view.adapter.onMovieListener;
-import kh.ad.appgaintask.view_model.MovieListViewModel;
+import android.content.Intent;
+import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.content.res.Configuration;
-import android.os.Bundle;
-import android.util.Log;
+import kh.ad.appgaintask.databinding.ActivityMoviesBinding;
+import kh.ad.appgaintask.view.adapter.MovieRecyclerView;
+import kh.ad.appgaintask.view.adapter.onMovieListener;
+import kh.ad.appgaintask.view_model.MovieListViewModel;
+import kh.ad.appgaintask.view_model.NetworkViewModel;
 
-import java.util.Locale;
-
-public class MoviesActivity extends AppCompatActivity implements onMovieListener {
+public class MoviesActivity extends AppCompatActivity implements onMovieListener, Observer<Boolean> {
 
     private MovieRecyclerView adapter;
 
@@ -26,17 +24,18 @@ public class MoviesActivity extends AppCompatActivity implements onMovieListener
 
     private ActivityMoviesBinding binding;
 
+    private boolean navigationStart = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMoviesBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        Configuration config;
-        config = new Configuration(getResources().getConfiguration());
-        config.locale = Locale.ENGLISH;
-        config.setLayoutDirection(new Locale("en"));
-        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
+        NetworkViewModel networkViewModel = new ViewModelProvider(this)
+                .get(NetworkViewModel.class);
+        networkViewModel.registerNetworkStateObserver(getApplication());
+        networkViewModel.getConnected().observe(this, this);
 
         movieListViewModel = new ViewModelProvider(this)
                 .get(MovieListViewModel.class);
@@ -54,7 +53,6 @@ public class MoviesActivity extends AppCompatActivity implements onMovieListener
         movieListViewModel.getPopMovies().observe(this,
                 movieModels -> {
                     if (movieModels != null) {
-                        Log.v("Tag", "list length " + movieModels.size());
                         adapter.setMovies(movieModels);
                     }
                 });
@@ -90,5 +88,18 @@ public class MoviesActivity extends AppCompatActivity implements onMovieListener
                 MovieDetailsActivity.class);
         intent.putExtra("movie", adapter.getSelectedMovie(position));
         startActivity(intent);
+    }
+
+    @Override
+    public void onChanged(Boolean aBoolean) {
+        if (!aBoolean) {
+            if (!navigationStart) {
+                Intent intent = new Intent(this, NoInternetActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+                navigationStart = true;
+            }
+        }
     }
 }

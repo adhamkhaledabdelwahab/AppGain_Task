@@ -9,7 +9,6 @@ import java.util.List;
 
 import kh.ad.appgaintask.model.models.MovieModel;
 
-//This class is for getting multiple movies - popular movies
 public class MovieSearchResponse {
     @SerializedName("total_results")
     @Expose()

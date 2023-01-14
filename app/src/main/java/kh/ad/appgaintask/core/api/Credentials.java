@@ -1,4 +1,4 @@
-package kh.ad.appgaintask.core;
+package kh.ad.appgaintask.core.api;
 
 public class Credentials {
     public static final String BASE_URL = "https://api.themoviedb.org/";

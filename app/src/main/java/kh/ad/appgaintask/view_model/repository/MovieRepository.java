@@ -5,12 +5,12 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 import kh.ad.appgaintask.model.models.MovieModel;
-import kh.ad.appgaintask.model.request.MovieApiClient;
+import kh.ad.appgaintask.core.api.PopularMoviesApiClient;
 
 public class MovieRepository {
     private static MovieRepository instance;
 
-    private final MovieApiClient movieApiClient;
+    private final PopularMoviesApiClient popularMoviesApiClient;
 
     private int mPageNumber;
 
@@ -21,16 +21,16 @@ public class MovieRepository {
     }
 
     private MovieRepository(){
-        movieApiClient = MovieApiClient.getInstance();
+        popularMoviesApiClient = PopularMoviesApiClient.getInstance();
     }
 
     public LiveData<List<MovieModel>> getPopularMovies(){
-        return movieApiClient.getMoviesPop();
+        return popularMoviesApiClient.getMoviesPop();
     }
 
     public void searchPopularMoviesApi(int pageNumber){
         mPageNumber = pageNumber;
-        movieApiClient.searchPopularMoviesApi(pageNumber);
+        popularMoviesApiClient.searchPopularMoviesApi(pageNumber);
     }
 
     public void searchNextPagePopular(){

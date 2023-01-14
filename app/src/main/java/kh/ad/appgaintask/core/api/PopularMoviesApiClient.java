@@ -1,4 +1,4 @@
-package kh.ad.appgaintask.model.request;
+package kh.ad.appgaintask.core.api;
 
 import android.util.Log;
 
@@ -12,33 +12,35 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 import kh.ad.appgaintask.core.AppExecutors;
-import kh.ad.appgaintask.core.Credentials;
 import kh.ad.appgaintask.model.models.MovieModel;
 import kh.ad.appgaintask.model.response.MovieSearchResponse;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class MovieApiClient {
+public class PopularMoviesApiClient {
 
-    private static MovieApiClient instance;
+    private static PopularMoviesApiClient instance;
 
     private final MutableLiveData<List<MovieModel>> mMoviesPop;
 
+
     private RetrievePopularMoviesRunnable retrievePopularMoviesRunnable;
 
-    public static MovieApiClient getInstance() {
+
+    public static PopularMoviesApiClient getInstance() {
         if (instance == null)
-            instance = new MovieApiClient();
+            instance = new PopularMoviesApiClient();
         return instance;
     }
 
-    private MovieApiClient() {
+    private PopularMoviesApiClient() {
         mMoviesPop = new MutableLiveData<>();
     }
 
     public LiveData<List<MovieModel>> getMoviesPop() {
         return mMoviesPop;
     }
+
 
     public void searchPopularMoviesApi(int pageNumber) {
 
@@ -57,6 +59,7 @@ public class MovieApiClient {
         }, 5000, TimeUnit.MILLISECONDS);
     }
 
+
     private class RetrievePopularMoviesRunnable implements Runnable {
 
         private final int pageNumber;
@@ -74,7 +77,9 @@ public class MovieApiClient {
                 if (cancelRequest) {
                     return;
                 }
+                Log.d("PopularMovies", "Headers: " + response.headers());
                 if (response.code() == 200) {
+                    Log.d("PopularMovies", "Response Body: " + response.body());
                     assert response.body() != null;
                     List<MovieModel> list = new ArrayList<>(
                             response.body().getMovies());
@@ -87,6 +92,7 @@ public class MovieApiClient {
                         mMoviesPop.postValue(currentMovies);
                     }
                 } else {
+                    Log.d("PopularMovies", "Response Error: " + response.errorBody());
                     assert response.errorBody() != null;
                     String error = response.errorBody().string();
                     Log.v("Tag", "Error " + error);

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1010560846418",
+    "project_id": "appgain-task-ecd3a",
+    "storage_bucket": "appgain-task-ecd3a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1010560846418:android:12b1b070274ceea7562d8b",
+        "android_client_info": {
+          "package_name": "kh.ad.appgaintask"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1010560846418-1mjcjl0abqg11bgi0n84cf5g0q3b0v4b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuFSSyjAElrT5omqUhyWsKe6_DS7DYivQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1010560846418-1mjcjl0abqg11bgi0n84cf5g0q3b0v4b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

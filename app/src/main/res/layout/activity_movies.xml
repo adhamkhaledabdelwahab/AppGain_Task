@@ -25,8 +25,10 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_weight="2"
+        android:paddingVertical="15dp"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         tools:listitem="@layout/popular_movies_layout"
+        tools:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:id="@+id/recycler_view" />
